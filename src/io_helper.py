@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from utils import logger
+
 
 def read_tsp(filename):
     """
@@ -24,7 +26,7 @@ def read_tsp(filename):
                 node_coord_start = i
             i = i + 1
 
-        print('Problem with {} cities read.'.format(dimension))
+        logger.error('Problem with {} cities read.'.format(dimension))
 
         f.seek(0)
 
