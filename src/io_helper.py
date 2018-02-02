@@ -20,7 +20,7 @@ def read_tsp(filename: str) -> 'pandas.DataFrame':
         i = 0
         while not dimension or not node_coord_start:
             line = lines[i]
-            if line.startswith('DIMENSION :'):
+            if line.startswith('DIMENSION'):
                 dimension = int(line.split()[-1])
             if line.startswith('NODE_COORD_SECTION'):
                 node_coord_start = i
@@ -41,6 +41,7 @@ def read_tsp(filename: str) -> 'pandas.DataFrame':
             nrows=dimension
         )
 
+        logger.debug('df.shape: {}'.format(cities.shape))
         # cities.set_index('city', inplace=True)
 
         return cities

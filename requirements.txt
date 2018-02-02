@@ -4,6 +4,9 @@ pip == 9.0.1
 # pytest
 pytest == 3.4.0
 
+# line_profiler
+line_profiler == 2.1.2
+
 # Matplotlib
 matplotlib == 2.1.2
 

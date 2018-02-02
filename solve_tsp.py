@@ -9,12 +9,13 @@ from src.utils import logger
 @click.command()
 @click.argument('tsp-filepath')
 @click.argument('iterations', type=int)
-def main(tsp_filepath: str, iterations: int):
+@click.option('--plot/--no-plot', default=False)
+def main(tsp_filepath: str, iterations: int, plot: bool):
     logger.info('Reading TSP file: {}'.format(tsp_filepath))
     problem = read_tsp(tsp_filepath)
 
     logger.info('Starting searching sub-optimal solution')
-    route = som(problem, iterations, plot=True)
+    route = som(problem, iterations, plot=plot)
 
     logger.info('Reindexing DataFrame')
     problem = problem.reindex(route)

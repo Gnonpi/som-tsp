@@ -1,4 +1,5 @@
 import numpy as np
+from numba import jit
 
 from src.distance import select_closest
 
@@ -12,6 +13,7 @@ def generate_network(size: int) -> 'numpy.ndarray':
     return np.random.rand(size, 2)
 
 
+@jit
 def get_neighborhood(center: int, radix: int, domain: int) -> float:
     """
     Get the range gaussian of given radix around a center index.
