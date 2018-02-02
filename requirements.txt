@@ -1,0 +1,17 @@
+# Pypi
+pip == 9.0.1
+
+# pytest
+pytest == 3.4.0
+
+# Matplotlib
+matplotlib == 2.1.2
+
+# Click
+click == 6.7
+
+# Pandas
+pandas == 0.22.0
+
+# Numba
+numba == 0.36.2
