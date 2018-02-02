@@ -1,12 +1,11 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-
 from sys import argv
 
+import click
+import numpy as np
+
+from distance import select_closest, route_distance
 from io_helper import read_tsp, normalize
 from neuron import generate_network, get_neighborhood, get_route
-from distance import select_closest, euclidean_distance, route_distance
 from plot import plot_network, plot_route
 from utils import logger
 
@@ -65,16 +64,15 @@ def som(problem, iterations, learning_rate=0.8):
     return route
 
 
-def main():
-    if len(argv) != 2:
-        print("Correct use: python src/main.py <filename>.tsp")
-        return -1
-
-    logger.info('Reading TSP file: {}'.format(argv[1]))
-    problem = read_tsp(argv[1])
+@click.command
+@click.argument('tsp-filepath')
+@click.argument('iterations', type=int)
+def main(tsp_filepath, iterations):
+    logger.info('Reading TSP file: {}'.format(tsp_filepath))
+    problem = read_tsp(tsp_filepath)
 
     logger.info('Starting searching sub-optimal solution')
-    route = som(problem, 1000)
+    route = som(problem, iterations)
 
     logger.info('Reindexing DataFrame')
     problem = problem.reindex(route)
