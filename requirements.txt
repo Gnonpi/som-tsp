@@ -1,0 +1,12 @@
+# Pypi
+pip == 9.0.1
+
+# Matplotlib
+# sudo apt-get install matplotlib
+matplotlib == 2.1.2
+
+# Pandas
+pandas == 0.22.0
+
+# Click
+click == 6.7
