@@ -1,16 +1,13 @@
-from sys import argv
-
-import click
 import numpy as np
 
-from distance import select_closest, route_distance
-from io_helper import read_tsp, normalize
-from neuron import generate_network, get_neighborhood, get_route
-from plot import plot_network, plot_route
-from utils import logger
+from src.distance import select_closest
+from src.io_helper import normalize
+from src.neuron import generate_network, get_neighborhood, get_route
+from src.plot import plot_network, plot_route
+from src.utils import logger
 
 
-def som(problem: 'pandas.DataFrame', iterations: int, learning_rate: float=0.8) -> int:
+def som(problem: 'pandas.DataFrame', iterations: int, learning_rate: float = 0.8, plot=False) -> int:
     """
     Solve the TSP using a Self-Organizing Map.
     """
@@ -42,7 +39,7 @@ def som(problem: 'pandas.DataFrame', iterations: int, learning_rate: float=0.8) 
         n = n * 0.9997
 
         # Check for plotting interval
-        if not i % 1000:
+        if not i % 1000 and plot:
             plot_network(cities, network, name='diagrams/{:05d}.png'.format(i))
 
         # Check if any parameter has completely decayed.
@@ -57,31 +54,10 @@ def som(problem: 'pandas.DataFrame', iterations: int, learning_rate: float=0.8) 
     else:
         logger.info('Completed {} iterations.'.format(iterations))
 
-    plot_network(cities, network, name='diagrams/final.png')
-
+    logger.debug('Getting routes')
     route = get_route(cities, network)
-    plot_route(cities, route, 'diagrams/route.png')
+
+    if plot:
+        plot_network(cities, network, name='diagrams/final.png')
+        plot_route(cities, route, 'diagrams/route.png')
     return route
-
-
-@click.command()
-@click.argument('tsp-filepath')
-@click.argument('iterations', type=int)
-def main(tsp_filepath: str, iterations: int):
-    logger.info('Reading TSP file: {}'.format(tsp_filepath))
-    problem = read_tsp(tsp_filepath)
-
-    logger.info('Starting searching sub-optimal solution')
-    route = som(problem, iterations)
-
-    logger.info('Reindexing DataFrame')
-    problem = problem.reindex(route)
-
-    logger.info('Fetch best path')
-    distance = route_distance(problem)
-
-    logger.info('Route found of length {}'.format(distance))
-
-
-if __name__ == '__main__':
-    main()

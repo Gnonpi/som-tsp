@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from utils import logger
+from src.utils import logger
 
 
 def read_tsp(filename: str) -> 'pandas.DataFrame':
