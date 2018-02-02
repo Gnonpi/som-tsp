@@ -2,5 +2,5 @@ import logging
 
 logger = logging.getLogger('som-tsp')
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                    datefmt='%m/%d/%Y %I:%M:%S %p',
+                    datefmt='%Y-%m-%d %H:%M:%S-%f',
                     level=logging.DEBUG)
