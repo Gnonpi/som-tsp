@@ -41,9 +41,7 @@ def read_tsp(filename: str) -> 'pandas.DataFrame':
             nrows=dimension
         )
 
-        logger.debug('df.shape: {}'.format(cities.shape))
         # cities.set_index('city', inplace=True)
-
         return cities
 
 

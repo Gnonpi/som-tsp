@@ -18,7 +18,7 @@ def plot_network(cities, neurons, name='diagram.png', ax=None):
         axis.scatter(cities['x'], cities['y'], color='red', s=4)
         axis.plot(neurons[:, 0], neurons[:, 1], 'r.', ls='-', color='#0063ba', markersize=2)
 
-        plt.savefig(name, bbox_inches='tight', pad_inches=0, dpi=200)
+        plt.savefig(name, bbox_inches='tight', pad_inches=0, dpi=100)
         plt.close()
 
     else:
@@ -45,7 +45,7 @@ def plot_route(cities, route, name='diagram.png', ax=None):
         route.loc[route.shape[0]] = route.iloc[0]
         axis.plot(route['x'], route['y'], color='purple', linewidth=1)
 
-        plt.savefig(name, bbox_inches='tight', pad_inches=0, dpi=200)
+        plt.savefig(name, bbox_inches='tight', pad_inches=0, dpi=500)
         plt.close()
 
     else:
